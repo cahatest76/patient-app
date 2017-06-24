@@ -1,0 +1,63 @@
+<!--
+  Generated template for the DoctorPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar>
+    <ion-title>{{ doctor.fullName }}</ion-title>
+  </ion-navbar>
+
+
+
+</ion-header>
+
+
+<ion-content >
+
+  <div class="profile">
+    <img src="assets/img/avatar-gollum.jpg">
+    <h1>{{ doctor.fullName }}</h1>
+    <h2>{{ doctor.speciality }}</h2>
+  </div>
+
+  <ion-list>
+    <ion-item-group>
+      <ion-item-divider sticky>
+        <ion-label>
+          Contacto
+        </ion-label>
+      </ion-item-divider>
+
+      <ion-item *ngFor="let contactInfo of doctor.contactInfos">
+        <ion-icon [name]="getContactInfoValue('icon', contactInfo.contactInfoType)" item-start></ion-icon>
+        <!--<h4>{{ getContactInfoValue('label', contactInfo.contactInfoType )}}</h4>-->
+        <p >{{ contactInfo.value }}</p>      
+      </ion-item>
+  </ion-item-group>
+
+  <ion-item-group>
+    <ion-item-divider sticky>
+        <ion-label>
+          {{doctor.doctorsOffice.name}}
+        </ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-icon name="pin" item-start></ion-icon>
+      <!--<h4>Dirección</h4>-->
+      <p [innerHtml]="getFullAddress(doctor.doctorsOffice.address)"></p>
+    </ion-item>
+  </ion-item-group>
+      
+  </ion-list>
+
+</ion-content>
+
+<ion-footer no-border>
+    <button ion-button icon-left full (click)='goToSchedule(doctor)'>
+      <ion-icon name="time"></ion-icon>
+      Agendar una cita
+    </button>
+</ion-footer>

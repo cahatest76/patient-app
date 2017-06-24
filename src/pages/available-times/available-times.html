@@ -1,0 +1,41 @@
+<!--
+  Generated template for the AvailableTimesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+<ion-navbar>
+    <ion-title>Horarios disponibles</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)='close("")'>
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list ion-row>
+    <ion-item (click)='close("09:00 AM")' ion-col col-4 no-lines>
+      <button ion-button round color="light">09:00 AM</button>
+    </ion-item>
+    <ion-item (click)='close("10:00 AM")' ion-col col-4 no-lines>
+      <button ion-button round color="default">10:00 AM</button>
+    </ion-item>
+     <ion-item (click)='close("11:00 AM")' ion-col col-4 no-lines>
+      <button ion-button round color="light">11:00 AM</button>
+    </ion-item>
+    <ion-item (click)='close("12:00 PM")' ion-col col-4 no-lines>
+      <button ion-button round color="light">12:00 PM</button>
+    </ion-item>
+    <ion-item (click)='close("01:00 PM")' ion-col col-4 no-lines>
+      <button ion-button round color="light">01:00 PM</button>
+    </ion-item>
+     <ion-item (click)='close("02:00 PM")' ion-col col-4 no-lines>
+      <button ion-button round color="light">02:00 PM</button>
+    </ion-item>
+  </ion-list>
+</ion-content>
