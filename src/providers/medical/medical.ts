@@ -17,6 +17,7 @@ export class MedicalProvider {
   constructor(public http: Http) {
     console.log('Hello DoctorProvider Provider');
     this.api = 'http://localhost:3000/api/';
+    //this.api = 'http://13.58.223.181/api/';
   }
 
   getDoctorList() {
