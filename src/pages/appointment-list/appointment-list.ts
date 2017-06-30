@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MedicalProvider } from '../../providers/medical/medical';
+import { AppointmentPage } from '../appointment/appointment'
 
 /**
  * Generated class for the AppointmentListPage page.
@@ -19,22 +20,26 @@ export class AppointmentListPage {
   public appointments: any;
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public medicalProvider: MedicalProvider
-    ) {
+  ) {
   }
 
   ionViewDidLoad() {
     console.log(this.navCtrl.getViews());
 
     this.medicalProvider.getAppointmentList('59449a317819bb5cb460a5d8')
-      .subscribe ( 
-          appointments => {
-            this.appointments  = appointments;
-            console.log(this.appointments);
-          }
+      .subscribe(
+      appointments => {
+        this.appointments = appointments;
+        console.log(this.appointments);
+      }
       )
+  }
+
+  goToAddAppointment() {
+    this.navCtrl.push(AppointmentPage);
   }
 
 }

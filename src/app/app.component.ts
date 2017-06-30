@@ -10,6 +10,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { DoctorListPage } from '../pages/doctor-list/doctor-list'
 import { AppointmentListPage } from '../pages/appointment-list/appointment-list'
 import { SettingsPage } from '../pages/settings/settings'
+import { LoginPage } from '../pages/login/login'
 
 
 export interface PageInterface {
@@ -41,7 +42,7 @@ export class MyApp {
     public storage: Storage
   ) {
 
-    this.rootPage = HomePage;
+    this.rootPage = LoginPage;
     this.appPages = [
       { title: 'Mis citas', name: 'AppointmentListPage', icon: 'calendar' },
       { title: 'Doctores', name: 'DoctorListPage', icon: 'contacts' },
@@ -54,11 +55,8 @@ export class MyApp {
     this.storage.get('hasSeenTutorial')
       .then((hasSeenTutorial) => {
         console.log(hasSeenTutorial);
-        if (hasSeenTutorial) {
-          this.rootPage = HomePage;
-        } else {
+        if (!hasSeenTutorial) 
           this.rootPage = TutorialPage;
-        }
         this.platformReady()
       });
     

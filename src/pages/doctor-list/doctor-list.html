@@ -16,7 +16,7 @@
 
 <ion-content class="list-avatar-page">
   <ion-list>
-    
+
     <ion-item (click)='goToDoctor(doctor)' *ngFor='let doctor of doctors'>
       <ion-avatar item-start>
         <img src="assets/img/avatar-gollum.jpg">
@@ -26,5 +26,9 @@
     </ion-item>
 
   </ion-list>
+
+  <ion-fab bottom right>
+    <button ion-fab (click)="goToAddDoctor()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 
 </ion-content>

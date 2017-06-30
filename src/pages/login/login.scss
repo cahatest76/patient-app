@@ -1,0 +1,30 @@
+page-login {
+
+    .login {
+        background:    color($colors, secondary);
+        padding: 10px;
+        position: relative;
+        height: 120px;
+        display:flex;
+        align-items: center; /* Vertical center alignment */
+        text-align: left;
+
+        h1 {
+            color:      white;
+            margin:     10px 0 0px;
+        }
+
+    }
+
+    .flexcontainer {
+       display: -webkit-flex;
+       display: flex;
+       -webkit-flex-direction: row;
+       flex-direction: row;
+       -webkit-align-items: center;
+       align-items: center;
+       -webkit-justify-content: center;
+       justify-content: center;
+    }
+
+}

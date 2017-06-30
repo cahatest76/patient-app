@@ -12,6 +12,8 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class MedicalProvider {
 
+  public static Error_Login_Fail = "LOGIN_FAILED";
+
   public api: string;
 
   constructor(public http: Http) {
@@ -20,14 +22,20 @@ export class MedicalProvider {
     //this.api = 'http://13.58.223.181/api/';
   }
 
-  getDoctorList() {
-    let url = this.api + 'Doctors?filter[include]=doctorsOffice';
+  getDoctorList(patientId) {
+    let url = this.api + `Patients/${patientId}/doctorList?filter[include]=doctorsOffice`;
     let response = this.http.get(url).map( res => res.json())
     return response; 
   }
 
   getAppointmentList(patientId) {
     let url = this.api + `Patients/${patientId}/appointments?filter[include]=doctor`;
+    let response = this.http.get(url).map( res => res.json())
+    return response; 
+  }
+
+  getPatientByAccountId(accountId){
+    let url = this.api + `Patients?filter[where][accountId]=${accountId}`;
     let response = this.http.get(url).map( res => res.json())
     return response; 
   }
@@ -40,9 +48,32 @@ export class MedicalProvider {
     let options = new RequestOptions({ headers: headers }); // Create a request option
 
     let response = this.http.post(url,body,options).map(res => res.json());
-    console.log(response);
     return response;
-    
+  }
+
+  saveOnBoarding(onBoarding){
+    let url = this.api + 'OnBoardings'
+    let body = JSON.stringify(onBoarding); // Stringify 
+    let headers = new Headers({ 'Content-Type': 'application/json' }); // Set content type to JSON
+    let options = new RequestOptions({ headers: headers }); // Create a request option
+
+    let response = this.http.post(url,body,options).map(res => res.json());
+    return response;
+  }
+
+  login(credentials){
+    let url = this.api + 'Accounts/login';
+    let body = JSON.stringify(credentials); // Stringify 
+    let headers = new Headers({ 'Content-Type': 'application/json' }); // Set content type to JSON
+    let options = new RequestOptions({ headers: headers }); // Create a request option
+    let response = this.http.post(url,body,options).map( res => res.json())
+    return response; 
+  }
+
+  addDoctor(patientId,invitationNumber){
+    let url = this.api + `Patients/${patientId}/doctorList/rel/${invitationNumber}`;
+    let response = this.http.put(url,'').map( res => res.json())
+    return response; 
   }
 
 }

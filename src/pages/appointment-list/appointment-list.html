@@ -18,7 +18,7 @@
 
   <ion-list>
 
-      <button ion-item *ngFor="let appointment of appointments" (click)="goToSessionDetail(session)">
+    <button ion-item *ngFor="let appointment of appointments" (click)="goToSessionDetail(session)">
         <ion-avatar item-end>
           <img src="assets/img/avatar-gollum.jpg">
         </ion-avatar>
@@ -30,5 +30,9 @@
       </button>
 
   </ion-list>
+
+  <ion-fab bottom right>
+    <button ion-fab (click)="goToAddAppointment()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 
 </ion-content>

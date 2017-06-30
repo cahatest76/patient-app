@@ -21,7 +21,7 @@
 
 <ion-content padding>
   <ion-list ion-row>
-    <ion-item ion-col col-12>
+    <ion-item ion-col col-12 (click)="goToDoctorSelection()">
       <ion-icon name="person" item-start></ion-icon>
       <h3>{{ doctor.fullName }}</h3>
       <p>{{ doctor.speciality }}</p>

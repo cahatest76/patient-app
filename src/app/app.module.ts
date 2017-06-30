@@ -13,6 +13,12 @@ import { AppointmentPage } from '../pages/appointment/appointment'
 import { AvailableTimesPage } from '../pages/available-times/available-times';
 import { ServiceTypePage } from '../pages/service-type/service-type'
 import { TutorialPage } from '../pages/tutorial/tutorial'
+import { LoginPage } from '../pages/login/login'
+import { RegisterPage } from '../pages/register/register'
+import { LandingPage } from '../pages/landing/landing'
+import { DoctorListPage } from '../pages/doctor-list/doctor-list'
+import { DoctorInvitationPage } from '../pages/doctor-invitation/doctor-invitation'
+import { DoctorSelectionPage } from '../pages/doctor-selection/doctor-selection'
 
 import { MedicalProvider } from '../providers/medical/medical';
 
@@ -24,7 +30,13 @@ import { MedicalProvider } from '../providers/medical/medical';
     AppointmentPage,
     AvailableTimesPage,
     ServiceTypePage,
-    TutorialPage
+    TutorialPage,
+    LoginPage,
+    RegisterPage,
+    LandingPage,
+    DoctorListPage,
+    DoctorInvitationPage,
+    DoctorSelectionPage
   ],
   imports: [
     BrowserModule,
@@ -40,7 +52,13 @@ import { MedicalProvider } from '../providers/medical/medical';
     AppointmentPage,
     AvailableTimesPage,
     ServiceTypePage,
-    TutorialPage
+    TutorialPage,
+    LoginPage,
+    RegisterPage,
+    LandingPage,
+    DoctorListPage,
+    DoctorInvitationPage,
+    DoctorSelectionPage
   ],
   providers: [
     StatusBar,

@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ModalController, AlertController }
 import { AvailableTimesPage } from '../available-times/available-times';
 import { ServiceTypePage } from '../service-type/service-type';
 import { AppointmentListPage } from '../appointment-list/appointment-list';
+import { DoctorSelectionPage } from '../doctor-selection/doctor-selection';
+
 import { MedicalProvider } from '../../providers/medical/medical';
 
 /**
@@ -25,24 +27,31 @@ export class AppointmentPage {
   @ViewChild('dateTime') time;
 
   public doctor: any;
-  public appointment : AppointmentView;
-  public today:any;
+  public appointment: AppointmentView;
+  public today: any;
 
   constructor(
-      public navCtrl: NavController, 
-      public navParams: NavParams,
-      public modalCtrl:  ModalController,
-      public alertCtrl: AlertController,
-      public medicalProvider: MedicalProvider
-    ) {
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public modalCtrl: ModalController,
+    public alertCtrl: AlertController,
+    public medicalProvider: MedicalProvider
+  ) {
     this.doctor = navParams.get('doctor');
+    if (this.doctor == null) { //viene del listado de appointments
+      this.doctor = {
+        fullName: "Doctor",
+        speciality: "Seleccione uno"
+      };
+    }
+
     this.today = new Date().toISOString();
 
     this.appointment = {
-        date: this.today,
-        time: selectOne,
-        serviceType: selectOne,
-        note: ''
+      date: this.today,
+      time: selectOne,
+      serviceType: selectOne,
+      note: ''
     };
   }
 
@@ -50,7 +59,7 @@ export class AppointmentPage {
     console.log('ionViewDidLoad AppointmentPage');
   }
 
-  saveAppointment(){
+  saveAppointment() {
     let appointment = {
       doctorId: this.doctor.id,
       patientId: '59449a317819bb5cb460a5d8',
@@ -63,26 +72,35 @@ export class AppointmentPage {
       address: this.doctor.doctorsOffice.address
     }
     this.medicalProvider.saveAppointment(appointment)
-      .subscribe ( 
-          response => {
-            console.log(response);
-            this.navCtrl.setRoot(AppointmentListPage);
-          })
+      .subscribe(
+      response => {
+        console.log(response);
+        this.navCtrl.setRoot(AppointmentListPage);
+      })
   }
 
-  goToAvailableTimes(){
+  goToAvailableTimes() {
     let modal = this.modalCtrl.create(AvailableTimesPage, {
-      
     });
     modal.present();
     modal.onDidDismiss(data => {
-      if (data.time != "" )
+      if (data.time != "")
         this.appointment.time = data.time;
     });
   }
 
-  goToServiceType(){
-    
+  goToDoctorSelection() {
+    let modal = this.modalCtrl.create(DoctorSelectionPage, {
+    });
+    modal.present();
+    modal.onDidDismiss(data => {
+      if (data.time != "")
+        this.doctor = data.doctor;
+    });
+  }
+
+  goToServiceType() {
+
     let alert = this.alertCtrl.create();
     alert.setTitle('Tipo de servicio');
 
@@ -100,35 +118,34 @@ export class AppointmentPage {
       text: 'Ok',
       handler: data => {
         console.log('Checkbox data:', data);
-        if (data != "" )
+        if (data != "")
           this.appointment.serviceType = data;
       }
     });
     alert.present();
   }
 
-  openDateTime(){
+  openDateTime() {
     this.time.open();
   }
 
 }
 
-export class AppointmentView
-{
-  public date:any;
-  public time:any;
-  public note:string;
-  public serviceType:string;
+export class AppointmentView {
+  public date: any;
+  public time: any;
+  public note: string;
+  public serviceType: string;
 }
 
 export class Appointment {
-  public doctorId:string;
-  public patientId:string;
+  public doctorId: string;
+  public patientId: string;
   public startTime: Date;
   public endTime: Date;
   public subject: string;
   public appointmentType: string;
   public reason: string;
-  public note:string;
+  public note: string;
   public address: any;
 }
