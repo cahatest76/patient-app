@@ -17,7 +17,6 @@ export class MedicalProvider {
   public api: string;
 
   constructor(public http: Http) {
-    console.log('Hello DoctorProvider Provider');
     this.api = 'http://localhost:3000/api/';
     //this.api = 'http://13.58.223.181/api/';
   }
@@ -30,6 +29,7 @@ export class MedicalProvider {
 
   getAppointmentList(patientId) {
     let url = this.api + `Patients/${patientId}/appointments?filter[include]=doctor`;
+    console.log(url);
     let response = this.http.get(url).map( res => res.json())
     return response; 
   }
@@ -42,12 +42,16 @@ export class MedicalProvider {
 
   saveAppointment(appointment){
     let url = this.api + 'Appointments'
-
     let body = JSON.stringify(appointment); // Stringify 
     let headers = new Headers({ 'Content-Type': 'application/json' }); // Set content type to JSON
     let options = new RequestOptions({ headers: headers }); // Create a request option
-
     let response = this.http.post(url,body,options).map(res => res.json());
+    return response;
+  }
+
+    cancelAppointment(appointmentid){
+    let url = this.api + `Appointments/${appointmentid}`
+    let response = this.http.delete(url).map(res => res.json());
     return response;
   }
 
@@ -56,7 +60,6 @@ export class MedicalProvider {
     let body = JSON.stringify(onBoarding); // Stringify 
     let headers = new Headers({ 'Content-Type': 'application/json' }); // Set content type to JSON
     let options = new RequestOptions({ headers: headers }); // Create a request option
-
     let response = this.http.post(url,body,options).map(res => res.json());
     return response;
   }

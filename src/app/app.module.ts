@@ -16,11 +16,15 @@ import { TutorialPage } from '../pages/tutorial/tutorial'
 import { LoginPage } from '../pages/login/login'
 import { RegisterPage } from '../pages/register/register'
 import { LandingPage } from '../pages/landing/landing'
-import { DoctorListPage } from '../pages/doctor-list/doctor-list'
+//import { DoctorListPage } from '../pages/doctor-list/doctor-list'
+//import { AppointmentListPage } from '../pages/appointment-list/appointment-list'
 import { DoctorInvitationPage } from '../pages/doctor-invitation/doctor-invitation'
 import { DoctorSelectionPage } from '../pages/doctor-selection/doctor-selection'
-
 import { MedicalProvider } from '../providers/medical/medical';
+
+import { AppointmentListPageModule } from '../pages/appointment-list/appointment-list.module'
+import { DoctorListPageModule } from '../pages/doctor-list/doctor-list.module'
+
 
 @NgModule({
   declarations: [
@@ -34,15 +38,18 @@ import { MedicalProvider } from '../providers/medical/medical';
     LoginPage,
     RegisterPage,
     LandingPage,
-    DoctorListPage,
+    //DoctorListPage,
     DoctorInvitationPage,
     DoctorSelectionPage
+    //AppointmentListPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    HttpModule
+    HttpModule,
+    AppointmentListPageModule,
+    DoctorListPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -56,9 +63,10 @@ import { MedicalProvider } from '../providers/medical/medical';
     LoginPage,
     RegisterPage,
     LandingPage,
-    DoctorListPage,
+    //DoctorListPage,
     DoctorInvitationPage,
     DoctorSelectionPage
+    //AppointmentListPage
   ],
   providers: [
     StatusBar,

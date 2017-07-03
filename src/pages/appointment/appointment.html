@@ -7,9 +7,9 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Nueva cita</ion-title>
-    <ion-buttons end>
-      <button ion-button (click)='saveAppointment()'>
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons end *ngIf='pageInsertMode'>
+      <button ion-button (click)='saveAppointment()' >
         Guardar
       </button>  
     </ion-buttons>
@@ -54,3 +54,11 @@
   <ion-datetime #dateTime style="display:none" displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [min]="today" [(ngModel)]="appointment.date"></ion-datetime>
 
 </ion-content>
+
+
+<ion-footer no-border *ngIf='!pageInsertMode'>
+    <button ion-button color='danger' icon-left full (click)='confirmDelete()'>
+      <ion-icon name="close"></ion-icon>
+      Cancelar cita
+    </button>
+</ion-footer>

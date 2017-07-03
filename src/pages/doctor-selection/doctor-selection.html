@@ -19,5 +19,13 @@
 
 
 <ion-content padding>
-
+  <ion-list>
+    <ion-item (click)='selectDoctor(doctor)' *ngFor='let doctor of doctors'>
+      <ion-avatar item-start>
+        <img src="assets/img/avatar-gollum.jpg">
+      </ion-avatar>
+      <h2>{{ doctor.fullName }}</h2>
+      <p>{{ doctor.speciality }}</p>
+    </ion-item>
+  </ion-list>
 </ion-content>

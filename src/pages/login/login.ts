@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ModalController, ToastController }
 
 import { RegisterPage } from '../register/register'
 import { DoctorListPage } from '../doctor-list/doctor-list'
+import { AppointmentListPage } from '../appointment-list/appointment-list'
+
 import { LandingPage } from '../landing/landing'
 
 import { MedicalProvider } from '../../providers/medical/medical';
@@ -84,6 +86,8 @@ export class LoginPage {
               this.navCtrl.setRoot(LandingPage);
           else
             this.navCtrl.setRoot(DoctorListPage);
+            //this.navCtrl.setRoot(AppointmentListPage);
+
         }
       )
 

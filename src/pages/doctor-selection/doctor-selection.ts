@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { MedicalProvider } from '../../providers/medical/medical';
+
 
 /**
  * Generated class for the DoctorSelectionPage page.
@@ -11,14 +14,46 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @Component({
   selector: 'page-doctor-selection',
   templateUrl: 'doctor-selection.html',
+  providers: [MedicalProvider]
 })
 export class DoctorSelectionPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public patientId: string;
+  public doctors: any;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public viewCtrl: ViewController,
+    public storage: Storage,
+    public medicalProvider: MedicalProvider
+  ) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DoctorSelectionPage');
+    this.storage.get('patient.id')
+      .then(patientId => {
+        this.patientId = patientId;
+
+        this.medicalProvider.getDoctorList(this.patientId)
+          .subscribe(
+          doctors => {
+            this.doctors = doctors;
+            console.log(this.doctors);
+          }
+          )
+      })
+  }
+
+  selectDoctor(doctorSelected) {
+    console.log(this.navCtrl.getViews());
+    //this.navCtrl.pop({ doctor: doctor});
+    this.viewCtrl.dismiss({ "doctor": doctorSelected });
+
+  }
+
+  close(){
+    this.viewCtrl.dismiss();
   }
 
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { DoctorListPage } from './doctor-list';
-import { CommonModule } from '@angular/common';
+//import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -9,8 +9,8 @@ import { CommonModule } from '@angular/common';
     DoctorListPage,
   ],
   imports: [
-    IonicPageModule.forChild(DoctorListPage),
-    CommonModule
+    IonicPageModule.forChild(DoctorListPage)
+    //,CommonModule
   ],
   exports: [
     DoctorListPage

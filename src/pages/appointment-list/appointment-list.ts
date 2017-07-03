@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MedicalProvider } from '../../providers/medical/medical';
 import { AppointmentPage } from '../appointment/appointment'
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the AppointmentListPage page.
@@ -18,28 +19,38 @@ import { AppointmentPage } from '../appointment/appointment'
 export class AppointmentListPage {
 
   public appointments: any;
+  public patientId: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public medicalProvider: MedicalProvider
+    public medicalProvider: MedicalProvider,
+    public storage: Storage
   ) {
   }
 
   ionViewDidLoad() {
-    console.log(this.navCtrl.getViews());
+    this.storage.get('patient.id')
+      .then(patientId => {
+        this.patientId = patientId;
 
-    this.medicalProvider.getAppointmentList('59449a317819bb5cb460a5d8')
-      .subscribe(
-      appointments => {
-        this.appointments = appointments;
-        console.log(this.appointments);
-      }
-      )
+        this.medicalProvider.getAppointmentList(this.patientId)
+          .subscribe(
+            appointments => {
+              this.appointments = appointments;
+            }
+          )
+      })
   }
 
   goToAddAppointment() {
     this.navCtrl.push(AppointmentPage);
+  }
+
+  goToAppointment (appointment) {
+      this.navCtrl.push(AppointmentPage, { 
+        "appointment": appointment
+      });
   }
 
 }

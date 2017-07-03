@@ -6,6 +6,8 @@ import { AppointmentListPage } from '../appointment-list/appointment-list';
 import { DoctorSelectionPage } from '../doctor-selection/doctor-selection';
 
 import { MedicalProvider } from '../../providers/medical/medical';
+import { Storage } from '@ionic/storage';
+
 
 /**
  * Generated class for the AppointmentPage page.
@@ -29,40 +31,66 @@ export class AppointmentPage {
   public doctor: any;
   public appointment: AppointmentView;
   public today: any;
+  public patientId: string;
+  public pageInsertMode: boolean;
+  public title: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
-    public medicalProvider: MedicalProvider
+    public medicalProvider: MedicalProvider,
+    public storage: Storage
   ) {
-    this.doctor = navParams.get('doctor');
-    if (this.doctor == null) { //viene del listado de appointments
-      this.doctor = {
-        fullName: "Doctor",
-        speciality: "Seleccione uno"
+    let appointment = navParams.get('appointment')
+    if (appointment != null) {
+      this.title = "Cita"
+      this.pageInsertMode = false;
+      console.log(navParams.get('appointment'));
+      this.appointment = {
+        id: appointment.id,
+        date: appointment.startTime,
+        time: selectOne,
+        serviceType: appointment.reason,
+        note: appointment.note
+      };
+      this.doctor = appointment.doctor;
+    }
+    else {
+      this.pageInsertMode = true;
+      this.title = "Nueva cita";
+      this.doctor = navParams.get('doctor');
+      if (this.doctor == null) { //viene del listado de appointments 
+        this.doctor = {
+          fullName: "Doctor",
+          speciality: "Seleccione uno"
+        };
+      }
+      this.today = new Date().toISOString();
+      this.appointment = {
+        id: '',
+        date: this.today,
+        time: selectOne,
+        serviceType: selectOne,
+        note: ''
       };
     }
-
-    this.today = new Date().toISOString();
-
-    this.appointment = {
-      date: this.today,
-      time: selectOne,
-      serviceType: selectOne,
-      note: ''
-    };
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AppointmentPage');
+
+    this.storage.get('patient.id')
+      .then(patientId => {
+        this.patientId = patientId;
+      })
   }
 
   saveAppointment() {
     let appointment = {
       doctorId: this.doctor.id,
-      patientId: '59449a317819bb5cb460a5d8',
+      patientId: this.patientId,
       startTime: this.appointment.date,
       endTime: this.appointment.date,
       subject: `Visita al doctor ${this.doctor.fullName}`,
@@ -94,16 +122,14 @@ export class AppointmentPage {
     });
     modal.present();
     modal.onDidDismiss(data => {
-      if (data.time != "")
+      if (data != null)
         this.doctor = data.doctor;
     });
   }
 
   goToServiceType() {
-
     let alert = this.alertCtrl.create();
     alert.setTitle('Tipo de servicio');
-
     for (let serviceType of this.doctor.serviceTypes) {
       alert.addInput({
         type: 'radio',
@@ -129,9 +155,40 @@ export class AppointmentPage {
     this.time.open();
   }
 
+
+  confirmDelete() {
+    let confirm = this.alertCtrl.create({
+      title: 'Confirmación',
+      message: '¿ Está seguro de cancelar su cita ?',
+      buttons: [
+        {
+          text: 'Cancelar',
+        },
+        {
+          text: 'Ok',
+          handler: () => {
+            this.medicalProvider.cancelAppointment(this.appointment.id)
+              .subscribe(
+              response => {
+                console.log(response);
+                this.navCtrl.setRoot(AppointmentListPage);
+              })
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
 }
+/*
+enum PageMode {
+  Insert,
+  Update
+}*/
 
 export class AppointmentView {
+  public id: string;
   public date: any;
   public time: any;
   public note: string;

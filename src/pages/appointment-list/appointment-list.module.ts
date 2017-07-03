@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { AppointmentListPage } from './appointment-list';
@@ -14,3 +15,4 @@ import { AppointmentListPage } from './appointment-list';
   ]
 })
 export class AppointmentListPageModule {}
+
