@@ -109,10 +109,11 @@ export class LoginPage {
           return;
         }
         let patient = res[0];
+        this.storage.set('patient', patient);
         this.storage.set('patient.id', patient.id);
         this.storage.set('patient.fullName', patient.fullName)
 
-        console.log('Patient id:' + this.storage.get('patient.id'));
+        //console.log('Patient id:' + this.storage.get('patient.id'));
 
         if (patient.doctors.length == 0)
           this.navCtrl.setRoot(LandingPage);

@@ -4,16 +4,50 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header no-border>
+
   <ion-navbar>
+    <ion-title>Configuración</ion-title>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Configuración</ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+
+  <div class="profile">
+    <img src="assets/img/avatar-gollum.jpg">
+    <h1>{{ patient.fullName }}</h1>
+  </div>
+
+  <ion-card class="firstCard">
+    <ion-card-header>
+      Información
+    </ion-card-header>
+    <ion-list>
+      <ion-item (click)="goToField(patient,'name', 'Nombre(s)')">
+        <h3>{{ patient.name }}</h3>
+        <p>Nombre(s)</p>
+      </ion-item>
+      <ion-item (click)="goToField(patient,'lname', 'Apellido(s)')">
+        <h3>{{ patient.lname }}</h3>
+        <p>Apellido(s)</p>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Contacto
+    </ion-card-header>
+    <ion-list>
+       <ion-item *ngFor="let contactInfo of patient.contactInfos" (click)="goToField(contactInfo,'value',getContactInfoValue('label', contactInfo.contactInfoType),contactInfo.contactInfoType,'contactInfoList',contactInfo.id)">
+        <h3>{{ contactInfo.value }}</h3>
+        <p [innerHtml]="getContactInfoValue('label', contactInfo.contactInfoType)"></p>
+      </ion-item>
+    </ion-list>
+  </ion-card>
 
 </ion-content>

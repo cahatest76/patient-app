@@ -2,7 +2,7 @@ page-login {
 
 
     .login {
-        background:    color($colors, primary);
+        background:    color($colors, dark);
         padding: 10px;
         position: relative;
         height: 160px;
@@ -18,11 +18,11 @@ page-login {
     }
 
     .login_fab {
-        background-color:  color($colors, dark)
+        background-color:  color($colors, secondary)
     }
 
     .fab_facebook {
-        background-color:  color($colors, secondary)
+        background-color:  color($colors, primary)
     }
 
     .fab_google{

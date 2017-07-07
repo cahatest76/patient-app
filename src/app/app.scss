@@ -45,7 +45,7 @@
 
 .contact-info {
   p {
-    color: color($colors, secondary);
+    color: color($colors, primary);
   }
 }
 
@@ -65,7 +65,7 @@
 */
 
 .fab {
-  background-color:  color($colors, primary);
+  background-color:  color($colors, secondary);
 }
 
 .profileHeader{
@@ -73,7 +73,7 @@
 }
 
 .profile {
-  background:    color($colors, primary);
+  background:    color($colors, dark);
   padding: 10px;
 
   img {

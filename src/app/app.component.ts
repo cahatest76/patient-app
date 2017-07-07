@@ -46,8 +46,8 @@ export class MyApp {
     this.rootPage = LoginPage;
     //this.rootPage = TabsPage;
     this.appPages = [
-      { title: 'Doctores', name: 'TabsPage', index:0, icon: 'contacts' },
-      { title: 'Mis citas', name: 'TabsPage', index:1, icon: 'calendar' },
+      { title: 'Doctores', name: 'TabsPage', index: 0, icon: 'contacts' },
+      { title: 'Mis citas', name: 'TabsPage', index: 1, icon: 'calendar' },
       { title: 'Configuración', name: 'SettingsPage', icon: 'construct' },
       { title: 'Tutorial', name: 'TabsPage', icon: 'help' },
       { title: 'Acerca de ...', name: 'TabsPage', icon: 'information' }
@@ -73,6 +73,10 @@ export class MyApp {
     });
   }
 
+  exit() {
+    this.storage.set('patient', null);
+    this.nav.setRoot(LoginPage);
+  }
 
   openPage(page: PageInterface) {
     let params = {};

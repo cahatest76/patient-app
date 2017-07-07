@@ -44,7 +44,7 @@
       <p *ngIf="formErrors.password" class="formErrorMessage">{{ formErrors.password }}</p>
 
       <ion-row style="margin: 40px 15px 0px 15px">
-        <button ion-button full icon-right (click)="logIn()" [disabled]="!(form.status == 'VALID')">Entrar
+        <button ion-button full icon-right (click)="logIn()" color="secondary" [disabled]="!(form.status == 'VALID')">Entrar
         <ion-icon name="arrow-forward"></ion-icon>
       </button>
       </ion-row>

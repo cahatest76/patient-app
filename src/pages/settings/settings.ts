@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { FormHelper } from '../../helpers/form';
+import { FieldPage } from '../field/field'
 
-/**
- * Generated class for the SettingsPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
 @IonicPage()
 @Component({
   selector: 'page-settings',
@@ -14,11 +12,42 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public patient: any;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public storage: Storage
+  ) {
+    this.patient = {};
+    this.storage.get('patient')
+      .then(patient => {
+        this.patient = patient;
+        console.log(this.patient);
+      });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
   }
 
+  getContactInfoValue(type, contactInfoType) {
+    return FormHelper.getContactInfoValue(type, contactInfoType);
+  }
+
+  goToField(obj, fieldName, fieldLabel,validation="", subObjectName="", subObjectKey="") {
+    let field = {
+      containerObj: this.patient,
+      obj: obj,
+      fieldName: fieldName,
+      fieldValue: obj[fieldName],
+      fieldLabel: fieldLabel,
+      subObjectName:subObjectName, 
+      subObjectKey:subObjectKey,
+      validation: validation
+    }
+    this.navCtrl.push(FieldPage, { field: field })
+      
+  }
 }
+

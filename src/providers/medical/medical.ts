@@ -40,6 +40,27 @@ export class MedicalProvider {
     let response = this.http.get(url).map( res => res.json())
     return response; 
   }
+  
+//  http://localhost:3000/api/Patients/595551672520a217e9d24d1a/contactInfoList/10ec7fc0-5cff-11e7-ad98-c5957b113724
+
+  updatePatientField(patientId, fieldName, fieldValue, subObjectName, subObjectKey) {
+    let field = {};
+    field[fieldName] = fieldValue;
+    let url;
+    let response;
+    let body = JSON.stringify(field); // Stringify 
+    let headers = new Headers({ 'Content-Type': 'application/json' }); // Set content type to JSON
+    let options = new RequestOptions({ headers: headers }); // Create a request option
+    if (subObjectName == '') {
+      url = this.api + `Patients/${patientId}`;
+      response = this.http.patch(url,body,options).map(res => res.json());
+    }
+    else {
+      url = this.api + `Patients/${patientId}/${subObjectName}/${subObjectKey}`;
+      response = this.http.put(url,body,options).map(res => res.json());
+    }
+    return response;
+  }
 
   saveAppointment(appointment){
     let url = this.api + 'Appointments'
@@ -50,7 +71,7 @@ export class MedicalProvider {
     return response;
   }
 
-    cancelAppointment(appointmentid){
+  cancelAppointment(appointmentid){
     let url = this.api + `Appointments/${appointmentid}`
     let response = this.http.delete(url).map(res => res.json());
     return response;

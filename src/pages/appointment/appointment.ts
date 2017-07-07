@@ -232,10 +232,10 @@ export class AppointmentPage {
             message: '¿ Está seguro de cancelar su cita ?',
             buttons: [
                 {
-                    text: 'Cancelar',
+                    text: 'No',
                 },
                 {
-                    text: 'Ok',
+                    text: 'Si',
                     handler: () => {
                         this.medicalProvider.cancelAppointment(this.appointment.id)
                             .subscribe(

@@ -25,11 +25,19 @@ $font-path: "../assets/fonts";
 
 
 $colors: (
+  /*
   primary:    #8BC34A,
   secondary:  #448AFF,
   danger:     #f53d3d,
   light:      #DCEDC8,
   dark:       #689F38,
+  */
+
+  primary:    #2196F3,
+  secondary:  #2196F3,//#FFC107,
+  danger:     #f53d3d,
+  light:      #BBDEFB,
+  dark:       #1976D2,
 
   card-list-background: #F0f0f0,
 
@@ -67,10 +75,10 @@ $colors: (
 // Material Design only Sass variables can go here
 
 // Use the primary color as the background for the toolbar-md-background
-$toolbar-md-background:                   color($colors, primary);
+$toolbar-md-background:                   color($colors, dark);
 
 // Change the color of the segment button text
-$toolbar-md-active-color:                 #689F38;
+//$toolbar-md-active-color:                 #689F38;
 
 //$badge-font-size: 1rem;
 

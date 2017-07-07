@@ -17,7 +17,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial'
 import { LoginPage } from '../pages/login/login'
 import { RegisterPage } from '../pages/register/register'
 import { LandingPage } from '../pages/landing/landing'
-//import { DoctorListPage } from '../pages/doctor-list/doctor-list'
+import { FieldPage } from '../pages/field/field'
 //import { AppointmentListPage } from '../pages/appointment-list/appointment-list'
 import { DoctorInvitationPage } from '../pages/doctor-invitation/doctor-invitation'
 import { DoctorSelectionPage } from '../pages/doctor-selection/doctor-selection'
@@ -42,6 +42,7 @@ import { TabsPageModule } from '../pages/tabs/tabs.module'
     LoginPage,
     RegisterPage,
     LandingPage,
+    FieldPage,
     //DoctorListPage,
     DoctorInvitationPage,
     DoctorSelectionPage,
@@ -70,6 +71,7 @@ import { TabsPageModule } from '../pages/tabs/tabs.module'
     LoginPage,
     RegisterPage,
     LandingPage,
+    FieldPage,
     //DoctorListPage,
     DoctorInvitationPage,
     DoctorSelectionPage,
