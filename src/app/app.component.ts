@@ -11,6 +11,7 @@ import { DoctorListPage } from '../pages/doctor-list/doctor-list'
 import { AppointmentListPage } from '../pages/appointment-list/appointment-list'
 import { SettingsPage } from '../pages/settings/settings'
 import { LoginPage } from '../pages/login/login'
+import { TabsPage } from '../pages/tabs/tabs'
 
 
 export interface PageInterface {
@@ -19,7 +20,7 @@ export interface PageInterface {
   //component: any;
   icon: string;
   //logsOut?: boolean;
-  //index?: number;
+  index?: number;
   //tabName?: string;
   //tabComponent?: any;
 }
@@ -43,9 +44,10 @@ export class MyApp {
   ) {
 
     this.rootPage = LoginPage;
+    //this.rootPage = TabsPage;
     this.appPages = [
-      { title: 'Mis citas', name: 'AppointmentListPage', icon: 'calendar' },
-      { title: 'Doctores', name: 'DoctorListPage', icon: 'contacts' },
+      { title: 'Doctores', name: 'TabsPage', index:0, icon: 'contacts' },
+      { title: 'Mis citas', name: 'TabsPage', index:1, icon: 'calendar' },
       { title: 'Configuración', name: 'SettingsPage', icon: 'construct' },
       { title: 'Tutorial', name: 'TabsPage', icon: 'help' },
       { title: 'Acerca de ...', name: 'TabsPage', icon: 'information' }
@@ -55,11 +57,11 @@ export class MyApp {
     this.storage.get('hasSeenTutorial')
       .then((hasSeenTutorial) => {
         console.log(hasSeenTutorial);
-        if (!hasSeenTutorial) 
+        if (!hasSeenTutorial)
           this.rootPage = TutorialPage;
         this.platformReady()
       });
-    
+
   }
 
   platformReady() {
@@ -73,10 +75,25 @@ export class MyApp {
 
 
   openPage(page: PageInterface) {
-    this.nav.setRoot(page.name).catch((err: any) => {
-      console.log(`Didn't set nav root: ${err}`);
-    });
+    let params = {};
 
+    // the nav component was found using @ViewChild(Nav)
+    // setRoot on the nav to remove previous pages and only have this page
+    // we wouldn't want the back button to show in this scenario
+    if (page.index) {
+      params = { tabIndex: page.index };
+    }
+    // If we are already on tabs just change the selected tab
+    // don't setRoot again, this maintains the history stack of the
+    // tabs even if changing them from the menu
+    if (this.nav.getActiveChildNav() && page.index != undefined) {
+      this.nav.getActiveChildNav().select(page.index);
+      // Set the root of the nav with params if it's a tab index
+    } else {
+      this.nav.setRoot(page.name, params).catch((err: any) => {
+        console.log(`Didn't set nav root: ${err}`);
+      });
+    }
   }
 }
 

@@ -9,8 +9,13 @@
   <ion-navbar>
     <ion-title>Nuevo doctor</ion-title>
     <ion-buttons end>
-      <button ion-button (click)='addDoctor()'>
-        Guardar
+      <button ion-button icon-only (click)='addDoctor()' [disabled]="!(form.status == 'VALID')">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons left>
+      <button ion-button icon-only (click)='close("")'>
+        <ion-icon name="arrow-round-back"></ion-icon>
       </button>
     </ion-buttons>
 
@@ -24,9 +29,12 @@
     Para agregar un doctor este te debió haber mandado un número de invitación
   </p>
   <ion-list>
-    <ion-item>
-      <ion-label stacked>Número de invitación</ion-label>
-      <ion-input type="text" value="" [(ngModel)]="invitationNumber"></ion-input>
-    </ion-item>
+    <form [formGroup]="form">
+      <ion-item>
+        <ion-label stacked>Número de invitación</ion-label>
+        <ion-input formControlName="invitationNumber" required type="text" value="" [(ngModel)]="invitationNumber"></ion-input>
+      </ion-item>
+      <p *ngIf="formErrors.invitationNumber" class="formErrorMessage">{{ formErrors.invitationNumber }}</p>
+    </form>
   </ion-list>
 </ion-content>

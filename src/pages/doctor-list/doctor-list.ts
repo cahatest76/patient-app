@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { DoctorPage } from '../doctor/doctor'
+import { AppointmentPage } from '../appointment/appointment'
 import { DoctorInvitationPage } from '../doctor-invitation/doctor-invitation'
 
 import { MedicalProvider } from '../../providers/medical/medical';
@@ -28,7 +29,8 @@ export class DoctorListPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public medicalProvider: MedicalProvider,
-    public storage: Storage
+    public storage: Storage,
+    public modalCtrl: ModalController
   ) {
 
     this.doctors = [];
@@ -42,10 +44,10 @@ export class DoctorListPage {
 
         this.medicalProvider.getDoctorList(this.patientId)
           .subscribe(
-            doctors => {
-              this.doctors = doctors;
-              console.log(this.doctors);
-            }
+          doctors => {
+            this.doctors = doctors;
+            console.log(this.doctors);
+          }
           )
       })
 
@@ -59,13 +61,35 @@ export class DoctorListPage {
     console.log('ionViewDidLoad DoctorListPage');
   }
 
+  /*
+    goToDoctor(doctor) {
+      console.log(this.navCtrl.getViews());
+      this.navCtrl.push(DoctorPage, { doctor: doctor });
+    }
+  */
   goToDoctor(doctor) {
-    console.log(this.navCtrl.getViews());
-    this.navCtrl.push(DoctorPage, { doctor: doctor });
+    let modal = this.modalCtrl.create(DoctorPage, {
+      doctor: doctor
+    });
+    modal.present();
+  }
+  /*
+    goToAddDoctor(){
+      this.navCtrl.push(DoctorInvitationPage);
+    }
+    */
+
+  goToAddDoctor(doctor) {
+    let modal = this.modalCtrl.create(DoctorInvitationPage, {
+    });
+    modal.present();
   }
 
-  goToAddDoctor(){
-    this.navCtrl.push(DoctorInvitationPage);
+  goToSchedule(doctor) {
+    let modal = this.modalCtrl.create(AppointmentPage, {
+      doctor: doctor
+    });
+    modal.present();
   }
 
 }

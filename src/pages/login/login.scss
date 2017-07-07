@@ -1,10 +1,11 @@
 page-login {
 
+
     .login {
-        background:    color($colors, secondary);
+        background:    color($colors, primary);
         padding: 10px;
         position: relative;
-        height: 120px;
+        height: 160px;
         display:flex;
         align-items: center; /* Vertical center alignment */
         text-align: left;
@@ -14,6 +15,18 @@ page-login {
             margin:     10px 0 0px;
         }
 
+    }
+
+    .login_fab {
+        background-color:  color($colors, dark)
+    }
+
+    .fab_facebook {
+        background-color:  color($colors, secondary)
+    }
+
+    .fab_google{
+        background-color:  color($colors, danger)
     }
 
     .flexcontainer {

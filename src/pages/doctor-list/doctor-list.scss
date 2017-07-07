@@ -1,3 +1,55 @@
 page-doctor-list {
 
+  .schedule-title {
+    ion-col {
+      padding: 0;
+    }
+  }
+
+  .schedule {
+    button {
+      color: #fff;
+    }
+  }
+
+  .scroll-content{
+    background-color: color($colors, card-list-background);
+  }
+/*
+  .badge{
+    z-index: 1;
+    position: absolute;
+    top: -3px;
+    left: 80px;
+  }
+
+*/
+  .badge-md {
+    border-radius: 8px;
+    background-color:#fff;
+    margin-left: 4px;
+  }
+
+  .badge-busy {
+    color: color($colors, busy);
+  }
+
+  .badge-quiet {
+    color: color($colors, quiet);
+  }
+
+  .badge-medium {
+    color: color($colors, medium);
+  }
+
+  .badge-out {
+    color: color($colors, out);
+  }
+
+  ion-badge{
+    font-size: 1rem;
+  }
+
 }
+
+

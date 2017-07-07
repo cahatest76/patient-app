@@ -7,9 +7,13 @@
 <ion-header no-border>
 
   <ion-navbar>
-    <ion-title>{{ doctor.fullName }}</ion-title>
+    <ion-title>Doctor</ion-title>
+    <ion-buttons left>
+      <button ion-button icon-only (click)='close("")'>
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
@@ -22,6 +26,7 @@
   </div>
 
   <ion-list>
+    
     <ion-item-group>
       <ion-item-divider sticky>
         <ion-label>
@@ -29,10 +34,10 @@
         </ion-label>
       </ion-item-divider>
 
-      <ion-item *ngFor="let contactInfo of doctor.contactInfos">
+      <ion-item class="contact-info" *ngFor="let contactInfo of doctor.contactInfos">
         <ion-icon [name]="getContactInfoValue('icon', contactInfo.contactInfoType)" item-start></ion-icon>
         <!--<h4>{{ getContactInfoValue('label', contactInfo.contactInfoType )}}</h4>-->
-        <p >{{ contactInfo.value }}</p>      
+        <p class="contact-info">{{ contactInfo.value }}</p>      
       </ion-item>
   </ion-item-group>
 
