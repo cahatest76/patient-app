@@ -21,50 +21,52 @@
     <h1>Medical App for Patients</h1>
 
     <ion-fab bottom right edge>
-      <button ion-fab (click)="goToRegister()">
+      <button ion-fab class="login_fab" (click)="goToRegister()">
         <ion-icon name="person-add"></ion-icon>
       </button>
     </ion-fab>
   </div>
 
   <ion-list>
+    <form [formGroup]="form">
+      <ion-item style="margin-top: 40px">
+        <ion-icon name="mail" item-start item-icon-bottom></ion-icon>
+        <ion-label floating>Correo</ion-label>
+        <ion-input type="text" [(ngModel)]="credentials.email" formControlName="email" required></ion-input>
+      </ion-item>
+      <p *ngIf="formErrors.email" class="formErrorMessage">{{ formErrors.email }}</p>
 
-    <ion-item style="margin-top: 40px">
-      <ion-icon name="mail" item-start item-icon-bottom></ion-icon>
-      <ion-label floating>Correo</ion-label>
-      <ion-input type="text" [(ngModel)]="credentials.email" ></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-icon name="key" item-start item-icon-bottom></ion-icon>
+        <ion-label floating>Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="credentials.password" formControlName="password" required></ion-input>
+      </ion-item>
+      <p *ngIf="formErrors.password" class="formErrorMessage">{{ formErrors.password }}</p>
 
-    <ion-item>
-      <ion-icon name="key" item-start item-icon-bottom></ion-icon>
-      <ion-label floating>Contraseña</ion-label>
-      <ion-input type="password" [(ngModel)]="credentials.password"></ion-input>
-    </ion-item>
-
-    <ion-row style="margin: 40px 15px 0px 15px">
-      <button ion-button full icon-right (click)="logIn()">Entrar
+      <ion-row style="margin: 40px 15px 0px 15px">
+        <button ion-button full icon-right (click)="logIn()" [disabled]="!(form.status == 'VALID')">Entrar
         <ion-icon name="arrow-forward"></ion-icon>
       </button>
-    </ion-row>
+      </ion-row>
 
-    <ion-row text-center>
-      <ion-col>
-        <p>¿ Olvidaste tu contraseña ?</p>
-      </ion-col>
-    </ion-row>
+      <ion-row text-center>
+        <ion-col>
+          <p>¿ Olvidaste tu contraseña ?</p>
+        </ion-col>
+      </ion-row>
 
-    <ion-row style="margin-top: 40px">
-      <ion-col col-3></ion-col>
-      <ion-col col-3 class="flexcontainer">
-        <button ion-fab><ion-icon name="logo-facebook" ></ion-icon></button>
-      </ion-col>
-      <ion-col col-3 class="flexcontainer">
-        <button ion-fab color="danger"><ion-icon name="logo-google" ></ion-icon></button>
-      </ion-col>
-      <ion-col col-3></ion-col>
-    </ion-row> 
+      <ion-row style="margin-top: 40px">
+        <ion-col col-3></ion-col>
+        <ion-col col-3 class="flexcontainer">
+          <button ion-fab class="fab_facebook"><ion-icon name="logo-facebook" ></ion-icon></button>
+        </ion-col>
+        <ion-col col-3 class="flexcontainer">
+          <button ion-fab class="fab_google"><ion-icon name="logo-google" ></ion-icon></button>
+        </ion-col>
+        <ion-col col-3></ion-col>
+      </ion-row>
+    </form>
 
   </ion-list>
-
 
 </ion-content>

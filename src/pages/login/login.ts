@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+//import { NgForm } from '@angular/forms';
 
 import { RegisterPage } from '../register/register'
-import { DoctorListPage } from '../doctor-list/doctor-list'
-import { AppointmentListPage } from '../appointment-list/appointment-list'
-
+import { TabsPage } from '../tabs/tabs'
 import { LandingPage } from '../landing/landing'
 
 import { MedicalProvider } from '../../providers/medical/medical';
 import { Storage } from '@ionic/storage';
-
+import { FormHelper } from '../../helpers/form';
+import { ValidationHelper } from '../../helpers/validation';
+import { NotificationHelper } from '../../helpers/notification';
 
 /**
  * Generated class for the LoginPage page.
@@ -26,6 +28,7 @@ import { Storage } from '@ionic/storage';
 export class LoginPage {
 
   public credentials: Credentials;
+  public form: FormGroup;
 
   constructor(
     public navCtrl: NavController,
@@ -33,6 +36,7 @@ export class LoginPage {
     public modalCtrl: ModalController,
     public medicalProvider: MedicalProvider,
     public toastCtrl: ToastController,
+    public formBuilder: FormBuilder,
     public storage: Storage
   ) {
     //this.credentials = new Credentials();
@@ -40,10 +44,36 @@ export class LoginPage {
       email: 'caha76@gmail.com',
       password: '123'
     }
+    this.buildForm();
   }
 
+
+  buildForm() {
+    this.form = this.formBuilder.group({
+      email:    ['',Validators.compose ([Validators.required, ValidationHelper.email])],
+      password: ['',Validators.compose ([Validators.required])]
+    })
+    this.form.valueChanges
+       .subscribe(data => FormHelper.onFormValueChanged(this.form, this.formErrors, this.validationMessages, data));
+    FormHelper.onFormValueChanged(this.form, this.formErrors, this.validationMessages);
+  }
+
+  formErrors = {
+    'email': '',
+    'password': ''
+  };
+
+  validationMessages = {
+    'email': {
+      'required': 'Este campo es requerido',
+      'email': 'Este campo tiene formato inválido',
+    },
+    'password': {
+      'required': 'Este campo es requerido.'
+    }
+  };
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
   }
 
   goToRegister() {
@@ -58,58 +88,49 @@ export class LoginPage {
 
     this.medicalProvider.login(this.credentials)
       .subscribe(
-        res => { 
-          this.logInSuccess(res);
-        },
-        err => {
-          this.logInError(err);
-        }
+      res => {
+        this.logInSuccess(res);
+      },
+      err => {
+        this.logInError(err);
+      }
 
-    )
+      )
   }
 
-  logInSuccess(account){
+  logInSuccess(account) {
     console.log(account);
     this.medicalProvider.getPatientByAccountId(account.userId)
-      .subscribe( 
-        res => {
-          console.log(res);
-          if (res.length == 0){
-            this.showError("No hay paciente asignado a esa cuenta");
-            return;
-          }
-          let patient = res[0];
-          this.storage.set('patient.id',patient.id)
-          console.log('Patient id:' +this.storage.get('patient.id'));
-          
-          if (patient.doctors.length == 0)
-              this.navCtrl.setRoot(LandingPage);
-          else
-            this.navCtrl.setRoot(DoctorListPage);
-            //this.navCtrl.setRoot(AppointmentListPage);
-
+      .subscribe(
+      res => {
+        console.log(res);
+        if (res.length == 0) {
+          NotificationHelper.showError(this.toastCtrl, "No hay paciente asignado a esa cuenta");
+          return;
         }
+        let patient = res[0];
+        this.storage.set('patient.id', patient.id);
+        this.storage.set('patient.fullName', patient.fullName)
+
+        console.log('Patient id:' + this.storage.get('patient.id'));
+
+        if (patient.doctors.length == 0)
+          this.navCtrl.setRoot(LandingPage);
+        else
+          this.navCtrl.setRoot(TabsPage, { tabIndex: 0 });
+      }
       )
 
   }
 
-  showError(errorMsg){
-    let toast = this.toastCtrl.create({
-      //cssClass: 'errorNotification',
-      message: errorMsg,
-      duration: 3000
-    });
-    toast.present();
-  }
-
-  logInError(errObj){
+  logInError(errObj) {
     let err: Error = JSON.parse(errObj._body).error;
     let errorMsg = "";
     if (err.code == MedicalProvider.Error_Login_Fail)
       errorMsg = "Correo o contraseña inválidos";
     else
       errorMsg = err.message;
-    this.showError(errorMsg);
+    NotificationHelper.showError(this.toastCtrl, errorMsg);
   }
 
 }
@@ -123,3 +144,4 @@ export class Credentials {
   public email: string;
   public password: string;
 }
+

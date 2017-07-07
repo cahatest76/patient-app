@@ -1,7 +1,62 @@
 page-appointment-list {
 
+/*
     ion-label{
         border-left: 2px solid color($colors, primary);
         padding-left: 10px;
+    }
+    */
+
+    .scroll-content{
+        background-color: color($colors, card-list-background);
+    }
+
+    .appointment-date{
+        display: flex;
+
+        border-right:1px inset;
+        margin-top: 4px;
+        margin-bottom: 4px;
+
+        h3 {
+            color: color($colors, dark);
+            font-weight: bold;
+        }
+
+        h1 {
+            color: color($colors, danger);
+            font-weight: bold;
+        }
+
+        .item-md {
+            padding-left: 0px;
+        }
+        
+        .item {
+            .item-inner {
+                padding-right: 0px;
+            }
+        }
+       
+    }
+
+    .appointment-info{
+        ion-label {
+            margin-top: 0; 
+            margin-bottom: 0px;
+        }
+
+        ion-icon[item-end] {
+            margin-top: 0;
+            margin-bottom: 0px;
+        }
+
+        .item-block {
+            min-height: 1.4rem;
+        }
+
+        h2 {
+            color: color($colors, dark);
+        }
     }
 }

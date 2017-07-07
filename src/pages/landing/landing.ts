@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angul
 import { MedicalProvider } from '../../providers/medical/medical';
 import { Storage } from '@ionic/storage';
 import { DoctorListPage } from '../doctor-list/doctor-list'
+import { NotificationHelper } from '../../helpers/notification';
 
 /**
  * Generated class for the LandingPage page.
@@ -43,19 +44,10 @@ export class LandingPage {
               if (res != null)
                 this.navCtrl.setRoot(DoctorListPage);
               else
-                this.showError("El número de invitación no fue encontrado, favor de verificar")
+                NotificationHelper.showError(this.toastCtrl, "El número de invitación no fue encontrado, favor de verificar")
             }
           )
       })
-  }
-
-  showError(errorMsg){
-    let toast = this.toastCtrl.create({
-      //cssClass: 'errorNotification',
-      message: errorMsg,
-      duration: 3000
-    });
-    toast.present();
   }
 
 }

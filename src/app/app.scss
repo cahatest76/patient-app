@@ -28,6 +28,46 @@
 */
 
 
+.item{
+  ion-icon {
+      min-height: 2rem;
+      font-size: 2rem;
+  }
+}
+
+.card-title {
+
+  h2 {
+    color: color($colors, dark);
+    font-weight: bold
+  }
+}
+
+.contact-info {
+  p {
+    color: color($colors, secondary);
+  }
+}
+
+.formErrorMessage {
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 73px;
+      color:    color($colors, danger);
+      font-size: small;
+  
+  }
+
+/*
+.button-md {
+  background-color: color($colors, secondary);
+}
+*/
+
+.fab {
+  background-color:  color($colors, primary);
+}
+
 .profileHeader{
    background-size: 100% 0px;
 }

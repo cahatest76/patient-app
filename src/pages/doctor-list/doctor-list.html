@@ -15,6 +15,74 @@
 
 
 <ion-content class="list-avatar-page">
+
+  <ion-card *ngFor='let doctor of doctors'>
+    <ion-item (click)='goToDoctor(doctor)' class="card-title">
+      <ion-avatar item-start>
+        <img src="assets/img/avatar-gollum.jpg">
+      </ion-avatar>
+      <h2 >{{ doctor.fullName }}</h2>
+      <p>{{ doctor.speciality }}</p>
+      <ion-icon item-end name="arrow-forward"></ion-icon>
+    </ion-item>
+    <hr />
+      <ion-row class="schedule-title">
+        <ion-col col-12 text-center>
+          <h2>Horarios disponibles</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row class="schedule">
+        <!--
+        <ion-col col-4 text-left center>
+          <p>Mañana</p>
+        </ion-col>
+        -->
+        <ion-col col-4>
+          <button ion-button full small color="out" disabled="true" (click)='goToSchedule(doctor)'>
+            Lun 14
+            <ion-badge class="badge-out">0</ion-badge>
+          </button>
+        </ion-col>
+        <ion-col col-4>
+          <button ion-button full small color="busy" (click)='goToSchedule(doctor)'>
+            Mar 15
+            <ion-badge class="badge-busy">2</ion-badge>
+          </button>
+        </ion-col>
+        <ion-col col-4>
+          <button ion-button full small color="medium" (click)='goToSchedule(doctor)'>
+            Mie 16
+            <ion-badge class="badge-medium">5</ion-badge>
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <!--
+        <ion-col col-4 text-left>
+          <p>Tarde</p>
+        </ion-col>
+        -->
+        <ion-col col-4>
+          <button ion-button full small color="quiet" (click)='goToSchedule(doctor)'>
+            Jue 17
+            <ion-badge class="badge-quiet">7</ion-badge>            
+          </button>
+        </ion-col>
+        <ion-col col-4>
+          <button ion-button full small color="quiet" (click)='goToSchedule(doctor)'>
+            Vie 18
+            <ion-badge class="badge-quiet">8</ion-badge>
+          </button>
+        </ion-col>
+        <ion-col col-4>
+          <button ion-button full small color="quiet" (click)='goToSchedule(doctor)'>
+            Sab 19
+            <ion-badge class="badge-quiet">9</ion-badge>            
+          </button>
+        </ion-col>
+      </ion-row>
+  </ion-card>
+  <!--
   <ion-list>
     <ion-item (click)='goToDoctor(doctor)' *ngFor='let doctor of doctors'>
       <ion-avatar item-start>
@@ -24,8 +92,8 @@
       <p>{{ doctor.speciality }}</p>
     </ion-item>
   </ion-list>
+  -->
   <ion-fab bottom right>
     <button ion-fab (click)="goToAddDoctor()"><ion-icon name="add"></ion-icon></button>
   </ion-fab>
-
 </ion-content>

@@ -9,15 +9,17 @@
   <ion-navbar>
     <ion-title>{{ title }}</ion-title>
     <ion-buttons end *ngIf='pageInsertMode'>
-      <button ion-button (click)='saveAppointment()' >
-        Guardar
-      </button>  
+      <button ion-button icon-only (click)='saveAppointment()'>
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
     </ion-buttons>
-  
+    <ion-buttons left>
+      <button ion-button icon-only (click)='close("")'>
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content padding>
   <ion-list ion-row>
@@ -29,36 +31,44 @@
     <ion-item ion-col col-12 (click)="openDateTime()">
       <ion-icon name="calendar" item-start></ion-icon>
       <h3>Fecha</h3>
-      <p>{{ appointment.date }}</p>
+      <p>{{ appointment.displayDate }}</p>
     </ion-item>
-    <ion-item ion-col col-12 (click)="goToAvailableTimes()">
+    <ion-item ion-col col-12 (click)="goToAvailableTimes()" *ngIf="!doctor.id==''">
       <ion-icon name="time" item-start></ion-icon>
       <h3>Hora</h3>
       <p>{{ appointment.time }}</p>
     </ion-item>
-    <ion-item ion-col col-12 (click)="goToServiceType()">
+    <ion-item ion-col col-12 (click)="goToServiceType()" *ngIf="!doctor.id==''">
       <ion-icon name="reorder" item-start></ion-icon>
       <h3>Tipo servicio</h3>
       <p>{{ appointment.serviceType }}</p>
     </ion-item>
-    <ion-item ion-col col-12 >
+    <ion-item ion-col col-12>
       <ion-icon name="create" item-start></ion-icon>
       <h3>Nota</h3>
-       <ion-item>
+      <ion-item class="text-area">
         <ion-textarea type="text" placeholder="Agregar nota" [(ngModel)]="appointment.note"></ion-textarea>
       </ion-item>
     </ion-item>
-    
-      
+
+
   </ion-list>
-  <ion-datetime #dateTime style="display:none" displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [min]="today" [(ngModel)]="appointment.date"></ion-datetime>
+  <ion-datetime #calendar style="display:none" displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [min]="today" [(ngModel)]="appointment.date"></ion-datetime>
 
 </ion-content>
 
 
-<ion-footer no-border *ngIf='!pageInsertMode'>
-    <button ion-button color='danger' icon-left full (click)='confirmDelete()'>
-      <ion-icon name="close"></ion-icon>
-      Cancelar cita
+<ion-footer ion-row no-border *ngIf='!pageInsertMode'>
+  <ion-col col-6 no-padding>
+    <button ion-button color='danger' full (click)='confirmDelete()'>
+      <!--<ion-icon name="close"></ion-icon>-->
+      Cancelar
     </button>
+  </ion-col>
+  <ion-col col-6 no-padding>
+    <button ion-button color='secundary' full>
+      <!--<ion-icon name="calendar"></ion-icon>-->
+      Re agender
+    </button>
+  </ion-col>
 </ion-footer>

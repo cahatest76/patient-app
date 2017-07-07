@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, MenuController, NavParams, Slides } from 'ionic-angular';
-import { HomePage } from '../home/home';
+import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
 
 /**
@@ -32,7 +32,7 @@ export class TutorialPage {
   }
 
   startApp() {
-    this.navCtrl.setRoot(HomePage).then(() => {
+    this.navCtrl.setRoot(LoginPage).then(() => {
       this.storage.set('hasSeenTutorial', 'true');
     })
   }

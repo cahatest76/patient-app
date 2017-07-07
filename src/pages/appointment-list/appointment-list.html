@@ -16,21 +16,62 @@
 
 <ion-content>
 
-  <ion-list>
+  <ion-card *ngFor="let appointment of appointments">
+    <ion-row (click)="goToAppointment(appointment)">
+      <ion-col col-3 class="appointment-date">
+        <ion-item text-center>
+          <h3>{{ getTime(appointment.startTime,'month') }}</h3>
+          <h1>{{ getTime(appointment.startTime,'day') }}</h1>
+          <p>{{ getTime(appointment.startTime,'time') }}</p>
+        </ion-item>
+      </ion-col>
+      <ion-col col-9>
+        <ion-list class="appointment-info">
+          <ion-item>
+            <!--
+            <ion-avatar item-end>
+              <img src="assets/img/avatar-gollum.jpg">
+            </ion-avatar>
+            -->
+            <ion-icon name="arrow-forward" item-end></ion-icon>
+            <h2>Cita {{ appointment.subject.toLowerCase() }}</h2>
+            <h3>Dr. {{ appointment.providerName }}</h3>
+            <p>{{ appointment.reason }}</p>
+          </ion-item>
+          <ion-item class="contact-info" *ngFor="let contactInfo of appointment.providerContactInfos">
+            <ion-icon [name]="getContactInfoValue('icon', contactInfo.contactInfoType)" item-end></ion-icon>
+            <p>{{ contactInfo.value }}</p>
+          </ion-item>
+          <hr />
+          <ion-item>
+            <ion-icon name="pin" item-end></ion-icon>
+            <h2>{{ appointment.place.name }}</h2>
+            <p [innerHtml]="getFullAddress(appointment.place.address)"></p>
+          </ion-item>
+          <ion-item class="contact-info" *ngFor="let contactInfo of appointment.place.contactInfos">
+            <ion-icon [name]="getContactInfoValue('icon', contactInfo.contactInfoType)" item-end></ion-icon>
+            <p>{{ contactInfo.value }}</p>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 
+  <!--
+  <ion-list>
     <button ion-item *ngFor="let appointment of appointments" (click)="goToAppointment(appointment)">
         <ion-avatar item-end>
           <img src="assets/img/avatar-gollum.jpg">
         </ion-avatar>
+        
         <h3>{{ appointment.subject }}</h3>      
         <p>
           {{ appointment.appointmentType }} <Br/>
-          {{ appointment.startTime }}
+          {{ getTime(appointment.startTime) }}
         </p>
       </button>
-
   </ion-list>
-
+  -->
   <ion-fab bottom right>
     <button ion-fab (click)="goToAddAppointment()"><ion-icon name="add"></ion-icon></button>
   </ion-fab>

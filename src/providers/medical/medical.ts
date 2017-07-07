@@ -28,7 +28,8 @@ export class MedicalProvider {
   }
 
   getAppointmentList(patientId) {
-    let url = this.api + `Patients/${patientId}/appointments?filter[include]=doctor`;
+    //let url = this.api + `Patients/${patientId}/appointments?filter[include]=doctor`;
+    let url = this.api + `Patients/${patientId}/appointments`;
     console.log(url);
     let response = this.http.get(url).map( res => res.json())
     return response; 
