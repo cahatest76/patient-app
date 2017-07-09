@@ -34,14 +34,14 @@
         <ion-label floating>Correo</ion-label>
         <ion-input type="text" [(ngModel)]="credentials.email" formControlName="email" required></ion-input>
       </ion-item>
-      <p *ngIf="formErrors.email" class="formErrorMessage">{{ formErrors.email }}</p>
+      <p *ngIf="formErrors.email" class="form-error-message">{{ formErrors.email }}</p>
 
       <ion-item>
         <ion-icon name="key" item-start item-icon-bottom></ion-icon>
         <ion-label floating>Contraseña</ion-label>
         <ion-input type="password" [(ngModel)]="credentials.password" formControlName="password" required></ion-input>
       </ion-item>
-      <p *ngIf="formErrors.password" class="formErrorMessage">{{ formErrors.password }}</p>
+      <p *ngIf="formErrors.password" class="form-error-message">{{ formErrors.password }}</p>
 
       <ion-row style="margin: 40px 15px 0px 15px">
         <button ion-button full icon-right (click)="logIn()" color="secondary" [disabled]="!(form.status == 'VALID')">Entrar

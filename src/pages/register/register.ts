@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, App } from 'ionic-angular';
 import { MedicalProvider } from '../../providers/medical/medical';
-import { HomePage } from '../home/home'
+import { TabsPage } from '../tabs/tabs'
+import { Storage } from '@ionic/storage';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormHelper } from '../../helpers/form';
+import { ValidationHelper } from '../../helpers/validation';
 
-
-/**
- * Generated class for the RegisterPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-register',
@@ -19,14 +16,19 @@ import { HomePage } from '../home/home'
 export class RegisterPage {
 
   public onBoarding: OnBoardingView;
+  public form: FormGroup;
 
   constructor(
+    public appCtrl: App,
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
-    public medicalProvider: MedicalProvider
+    public medicalProvider: MedicalProvider,
+    public storage: Storage,
+    public formBuilder: FormBuilder
   ) {
     //this.onBoarding = new OnBoardingView();
+    this.buildForm();
     this.onBoarding = {
       name: "Cesar",
       lname: "Herrera",
@@ -37,13 +39,60 @@ export class RegisterPage {
     }
   }
 
+  buildForm() {
+    this.form = this.formBuilder.group({
+      name: ['', Validators.compose([Validators.required])],
+      lname: ['', Validators.compose([Validators.required])],
+      phone: ['', Validators.compose([])],
+      mobile: ['', Validators.compose([])],
+      email: ['', Validators.compose([Validators.required, ValidationHelper.email])],
+      password: ['', Validators.compose([Validators.required])]
+    })
+    this.form.valueChanges
+      .subscribe(data => FormHelper.onFormValueChanged(this.form, this.formErrors, this.validationMessages, data));
+    FormHelper.onFormValueChanged(this.form, this.formErrors, this.validationMessages);
+  }
+
+  formErrors = {
+
+    'name': '',
+    'lname': '',
+    'phone': '',
+    'mobile': '',
+    'email': '',
+    'password': ''
+  };
+
+  validationMessages = {
+    'name': {
+      'required': 'Este campo es requerido.'
+    },
+    'lname': {
+      'required': 'Este campo es requerido.'
+    },
+    'phone': {
+      'phone': 'Este campo tiene formato inválido.'
+    },
+    'mobile': {
+      'phone': 'Este campo tiene formato inválido.'
+    },
+    'email': {
+      'required': 'Este campo es requerido',
+      'email': 'Este campo tiene formato inválido',
+    },
+    'password': {
+      'required': 'Este campo es requerido.'
+    }
+  };
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
   }
 
+  /*
   close() {
     this.viewCtrl.dismiss();
-  }
+  }*/
 
   save() {
     let onBoarding: OnBoarding = {
@@ -74,11 +123,16 @@ export class RegisterPage {
     };
 
     this.medicalProvider.saveOnBoarding(onBoarding)
-      .subscribe ( 
-          response => {
-            console.log(response);
-            this.navCtrl.setRoot(HomePage);
+      .subscribe(
+      onboarding => {
+        //console.log(onboarding);
+        this.medicalProvider.getPatient(onboarding.patientId).subscribe(
+          patient => {
+            this.storage.set("patient", patient);
+            this.viewCtrl.dismiss();
+            this.appCtrl.getRootNav().setRoot(TabsPage, { tabIndex: 0 });
           })
+      })
   }
 
 }

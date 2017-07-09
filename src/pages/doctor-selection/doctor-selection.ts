@@ -31,9 +31,9 @@ export class DoctorSelectionPage {
   }
 
   ionViewDidLoad() {
-    this.storage.get('patient.id')
-      .then(patientId => {
-        this.patientId = patientId;
+    this.storage.get('patient')
+      .then(patient => {
+        this.patientId = patient.id;
 
         this.medicalProvider.getDoctorList(this.patientId)
           .subscribe(

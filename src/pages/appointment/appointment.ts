@@ -107,15 +107,12 @@ export class AppointmentPage {
     }
 
     ionViewDidLoad() {
-        this.storage.get('patient.id')
-            .then(patientId => {
-                this.patientId = patientId;
+        this.storage.get('patient')
+            .then(patient => {
+                this.patientId = patient.id;
+                this.patientFullName = patient.fullName;
             })
 
-        this.storage.get('patient.fullName')
-            .then(patientFullName => {
-                this.patientFullName = patientFullName;
-            })
     }
 
     appointmentValidation() {

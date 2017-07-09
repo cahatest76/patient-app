@@ -39,6 +39,7 @@ export class LoginPage {
     public formBuilder: FormBuilder,
     public storage: Storage
   ) {
+
     //this.credentials = new Credentials();
     this.credentials = {
       email: 'caha76@gmail.com',
@@ -47,14 +48,13 @@ export class LoginPage {
     this.buildForm();
   }
 
-
   buildForm() {
     this.form = this.formBuilder.group({
-      email:    ['',Validators.compose ([Validators.required, ValidationHelper.email])],
-      password: ['',Validators.compose ([Validators.required])]
+      email: ['', Validators.compose([Validators.required, ValidationHelper.email])],
+      password: ['', Validators.compose([Validators.required])]
     })
     this.form.valueChanges
-       .subscribe(data => FormHelper.onFormValueChanged(this.form, this.formErrors, this.validationMessages, data));
+      .subscribe(data => FormHelper.onFormValueChanged(this.form, this.formErrors, this.validationMessages, data));
     FormHelper.onFormValueChanged(this.form, this.formErrors, this.validationMessages);
   }
 
@@ -77,11 +77,8 @@ export class LoginPage {
   }
 
   goToRegister() {
-    let modal = this.modalCtrl.create(RegisterPage, {
-
+    let modal = this.navCtrl.push(RegisterPage, {
     });
-    modal.present();
-
   }
 
   logIn() {
@@ -99,7 +96,6 @@ export class LoginPage {
   }
 
   logInSuccess(account) {
-    console.log(account);
     this.medicalProvider.getPatientByAccountId(account.userId)
       .subscribe(
       res => {
@@ -110,15 +106,11 @@ export class LoginPage {
         }
         let patient = res[0];
         this.storage.set('patient', patient);
-        this.storage.set('patient.id', patient.id);
-        this.storage.set('patient.fullName', patient.fullName)
 
-        //console.log('Patient id:' + this.storage.get('patient.id'));
-
-        if (patient.doctors.length == 0)
-          this.navCtrl.setRoot(LandingPage);
-        else
-          this.navCtrl.setRoot(TabsPage, { tabIndex: 0 });
+        //if (patient.doctors.length == 0)
+        //this.navCtrl.setRoot(LandingPage);
+        //else
+        this.navCtrl.setRoot(TabsPage, { tabIndex: 0 });
       }
       )
 

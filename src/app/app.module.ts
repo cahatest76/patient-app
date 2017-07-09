@@ -26,6 +26,8 @@ import { MedicalProvider } from '../providers/medical/medical';
 import { AppointmentListPageModule } from '../pages/appointment-list/appointment-list.module'
 import { DoctorListPageModule } from '../pages/doctor-list/doctor-list.module'
 import { TabsPageModule } from '../pages/tabs/tabs.module'
+import { SettingsPageModule } from '../pages/settings/settings.module'
+
 
 //import { TabsPage } from '../pages/tabs/tabs'
 
@@ -43,7 +45,6 @@ import { TabsPageModule } from '../pages/tabs/tabs.module'
     RegisterPage,
     LandingPage,
     FieldPage,
-    //DoctorListPage,
     DoctorInvitationPage,
     DoctorSelectionPage,
     //TabsPage
@@ -57,7 +58,8 @@ import { TabsPageModule } from '../pages/tabs/tabs.module'
     HttpModule,
     TabsPageModule,
     AppointmentListPageModule,
-    DoctorListPageModule
+    DoctorListPageModule,
+    SettingsPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -72,7 +74,6 @@ import { TabsPageModule } from '../pages/tabs/tabs.module'
     RegisterPage,
     LandingPage,
     FieldPage,
-    //DoctorListPage,
     DoctorInvitationPage,
     DoctorSelectionPage,
     //TabsPage

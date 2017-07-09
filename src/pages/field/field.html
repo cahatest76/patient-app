@@ -23,10 +23,10 @@
   <ion-list>
     <form [formGroup]="form">
       <ion-item>
-        <ion-label stacked>{{ field.fieldLabel }}</ion-label>
+        <ion-label floating>{{ field.fieldLabel }}</ion-label>
         <ion-input formControlName="field" required type="text" [(ngModel)]="field.fieldValue"></ion-input>
       </ion-item>
-     <p *ngIf="formErrors.field" class="formErrorMessage">{{ formErrors.field }}</p>
+     <p *ngIf="formErrors.field" class="form-error-message">{{ formErrors.field }}</p>
     </form>
   
   </ion-list>

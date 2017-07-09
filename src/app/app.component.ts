@@ -56,7 +56,6 @@ export class MyApp {
     // Check if the user has already seen the tutorial
     this.storage.get('hasSeenTutorial')
       .then((hasSeenTutorial) => {
-        console.log(hasSeenTutorial);
         if (!hasSeenTutorial)
           this.rootPage = TutorialPage;
         this.platformReady()
@@ -94,6 +93,7 @@ export class MyApp {
       this.nav.getActiveChildNav().select(page.index);
       // Set the root of the nav with params if it's a tab index
     } else {
+      //this.nav.setRoot(SettingsPage);
       this.nav.setRoot(page.name, params).catch((err: any) => {
         console.log(`Didn't set nav root: ${err}`);
       });

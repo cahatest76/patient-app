@@ -35,9 +35,9 @@ export class LandingPage {
   }
 
   addDoctor() {
-    this.storage.get('patient.id')
-      .then(patientId => {
-        this.medicalProvider.addDoctor(patientId, this.invitationNumber)
+    this.storage.get('patient')
+      .then(patient => {
+        this.medicalProvider.addDoctor(patient.id, this.invitationNumber)
           .subscribe(
             res => {
               console.log(res);

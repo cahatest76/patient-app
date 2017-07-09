@@ -8,8 +8,8 @@
   <ion-navbar>
     <ion-title>Registro</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)='close("")'>
-        <ion-icon name="close"></ion-icon>
+      <button ion-button icon-only (click)='save()' [disabled]="!(form.status == 'VALID')">
+        <ion-icon name="checkmark"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -18,50 +18,51 @@
 
 <ion-content padding>
 
-  <ion-list ion-row>
+  <form [formGroup]="form">
 
-    <ion-item ion-col col-12>
-      <ion-icon name="mail" item-start></ion-icon>
-      <ion-label floating>Correo</ion-label>
-      <ion-input type="text" [(ngModel)]="onBoarding.email"></ion-input>
-    </ion-item>
+    <ion-list ion-row>
+      <ion-item ion-col col-12>
+        <ion-icon name="mail" item-start></ion-icon>
+        <ion-label floating>Correo</ion-label>
+        <ion-input formControlName="email" type="text" [(ngModel)]="onBoarding.email"></ion-input>
+      </ion-item>
+      <p *ngIf="formErrors.email" class="form-error-message">{{ formErrors.email }}</p>
 
-    <ion-item ion-col col-12>
-      <ion-icon name="phone-portrait" item-start></ion-icon>
-      <ion-label floating>Celular</ion-label>
-      <ion-input type="text" [(ngModel)]="onBoarding.mobile"></ion-input>
-    </ion-item>
+      <ion-item ion-col col-12>
+        <ion-icon name="phone-portrait" item-start></ion-icon>
+        <ion-label floating>Celular</ion-label>
+        <ion-input formControlName="mobile" type="text" [(ngModel)]="onBoarding.mobile"></ion-input>
+      </ion-item>
+      <p *ngIf="formErrors.mobile" class="form-error-message">{{ formErrors.mobile }}</p>
 
-    <ion-item ion-col col-12>
-      <ion-icon name="call" item-start></ion-icon>
-      <ion-label floating>Teléfono casa</ion-label>
-      <ion-input type="text" [(ngModel)]="onBoarding.phone"></ion-input>
-    </ion-item>
+      <ion-item ion-col col-12>
+        <ion-icon name="call" item-start></ion-icon>
+        <ion-label floating>Teléfono casa</ion-label>
+        <ion-input formControlName="phone" type="text" [(ngModel)]="onBoarding.phone"></ion-input>
+      </ion-item>
+      <p *ngIf="formErrors.mobile" class="form-error-message">{{ formErrors.mobile }}</p>
 
-    <ion-item ion-col col-12>
-      <ion-icon name="key" item-start></ion-icon>
-      <ion-label floating>Contraseña</ion-label>
-      <ion-input type="password" [(ngModel)]="onBoarding.password"></ion-input>
-    </ion-item>
+      <ion-item ion-col col-12>
+        <ion-icon name="key" item-start></ion-icon>
+        <ion-label floating>Contraseña</ion-label>
+        <ion-input formControlName="password" type="password" [(ngModel)]="onBoarding.password"></ion-input>
+      </ion-item>
+      <p *ngIf="formErrors.password" class="form-error-message">{{ formErrors.password }}</p>
 
-    <ion-item ion-col col-12>
-      <ion-icon name="person" item-start></ion-icon>
-      <ion-label floating>Nombre(s)</ion-label>
-      <ion-input type="text" [(ngModel)]="onBoarding.name"></ion-input>
-    </ion-item>
+      <ion-item ion-col col-12>
+        <ion-icon name="person" item-start></ion-icon>
+        <ion-label floating>Nombre(s)</ion-label>
+        <ion-input formControlName="name" type="text" [(ngModel)]="onBoarding.name"></ion-input>
+      </ion-item>
+      <p *ngIf="formErrors.name" class="form-error-message">{{ formErrors.name }}</p>
 
-    <ion-item ion-col col-12>
-      <ion-icon name="" item-start></ion-icon>
-      <ion-label floating>Apellidos</ion-label>
-      <ion-input type="text" [(ngModel)]="onBoarding.lname"></ion-input>
-    </ion-item>
-
-  </ion-list>
+      <ion-item ion-col col-12>
+        <ion-icon name="" item-start></ion-icon>
+        <ion-label floating>Apellidos</ion-label>
+        <ion-input formControlName="lname" type="text" [(ngModel)]="onBoarding.lname"></ion-input>
+      </ion-item>
+      <p *ngIf="formErrors.lname" class="form-error-message">{{ formErrors.lname }}</p>
+    </ion-list>
+  </form>
 
 </ion-content>
-
-<ion-footer no-border>
-    <button ion-button full (click)='save()'>
-      Guardar
-    </button>
-</ion-footer>
